@@ -1,0 +1,44 @@
+from jinja2 import Environment, FileSystemLoader
+import os
+
+
+max_score = 100
+test_name = "Python Challenge"
+students = [
+    {"name": "Sandrine",  "score": 100},
+    {"name": "Gergeley", "score": 87},
+    {"name": "Frieda", "score": 92},
+    {"name": "Fritz", "score": 40},
+    {"name": "Sirius", "score": 75},
+]
+
+environment = Environment(loader=FileSystemLoader("../templates/"))
+path = os.getcwd()
+dir = f'{path}/rendered_examples'
+
+# creating txt files from template
+template = environment.get_template("message.txt")
+for student in students:
+    filename = f"message_{student['name'].lower()}.txt"
+    content = template.render(
+        student,
+        max_score=max_score,
+        test_name=test_name
+    )
+
+    with open(f'{dir}/{filename}', mode="w+", encoding="utf-8") \
+            as message:
+        message.write(content)
+        print(f"... wrote {filename}")
+
+# creating HTML file
+results_filename = "students_results.html"
+results_template = environment.get_template("results.html")
+context = {
+    "students": students,
+    "test_name": test_name,
+    "max_score": max_score,
+}
+with open(f'{dir}/{results_filename}', mode="w", encoding="utf-8") as results:
+    results.write(results_template.render(context))
+    print(f"... wrote {results_filename}")

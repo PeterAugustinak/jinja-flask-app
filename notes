@@ -1,0 +1,24 @@
+# simple jinja template render
+import jinja2
+environment = jinja2.Environment()
+template = environment.from_string("Hello, {{name}}!")
+template.render(name="world")
+# 'Hello, world!'
+
+# {{ }} - two curly braces for rendering text
+# {% %} - one curly brace with % = jinja block, ex. for conditionals
+
+# if block example
+{% if score > 80 %}
+.. some text
+{% else %}
+.. some text
+{% endif %}
+
+# for loop example
+  {% for student in students %}
+    <li>
+      <em>{{ student.name }}:</em> {{ student.score }}/{{ max_score }}
+    </li>
+  {% endfor %}
+
