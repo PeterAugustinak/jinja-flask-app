@@ -6,7 +6,7 @@
 {% for student in students|sort(attribute="score", reverse=true)
   |sort(attribute="name") %}
   <li>
-    {% if student.score > 80 %}🙂{% else %}🙁{% endif %}
+    {{ macros.add_badge(student, students) }}
     <em>{{ student.name }}:</em> {{ student.score }}/{{ max_score }}
   </li>
 {% endfor %}

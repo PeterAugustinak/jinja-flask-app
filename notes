@@ -22,3 +22,25 @@ template.render(name="world")
     </li>
   {% endfor %}
 
+# inherit from another template
+{% extends "base.html" %}
+
+# import another template
+{% import "macros.html" as macros %}
+
+# include another template (navigation
+{% include "_navigation.html" %}
+
+# macros = template functions
+# Jinja lets you define your own variables inside of a template with the {% set %} block.
+{% macro add_badge(student, students) %}
+  {% set high_score = students|map(attribute="score")|max %}
+
+  {% if student.score == high_score %}
+    ⭐️
+  {% elif student.score > 80 %}
+    🙂
+  {% else %}
+    🙁
+  {% endif %}
+{% endmacro %}
