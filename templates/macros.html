@@ -15,6 +15,7 @@
   {% endif %}
 {% endmacro %}
 
+
 {% macro add_badge(student, students) %}
   {% set high_score = students|map(attribute="score")|max %}
 
@@ -24,5 +25,14 @@
     🙂
   {% else %}
     🙁
+  {% endif %}
+{% endmacro %}
+
+
+{% macro nav_link(menu_item) %}
+  {% set mode = "?mode=dark" if request.args.get("mode") == "dark" else "" %}
+  <a href="{{ url_for(menu_item) }}{{ mode }}">{{ menu_item|upper }}</a>
+  {% if request.endpoint == menu_item %}
+    ←
   {% endif %}
 {% endmacro %}
